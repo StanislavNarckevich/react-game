@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&family=Merienda:wght@400;700&display=swap");
+
+.Log {
+  width: 30%;
+  height: 30%;
+  background-color: rgba($color: #ad652a, $alpha: 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  position: absolute;
+  border-radius: 10px;
+  top: 30%;
+  left: 33%;
+
+  span {
+    color: whitesmoke;
+    font-size: 1.3em;
+    font-family: "Merienda", cursive;
+  }
+
+  input {
+    min-width: 40%;
+    padding: 5px;
+  }
+
+  button {
+    background-color: royalblue;
+    text-transform: uppercase;
+    font-size: 1.1em;
+    color: seashell;
+    font-family: "Merienda", cursive;
+    border-radius: 7px;
+  }
+}

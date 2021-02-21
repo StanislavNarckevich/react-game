@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet";
 import MainMenu from "../Main-menu/Main-menu";
 import MenuBtn from "../MenuBtn/MenuBtn";
 import Music from "../Sound/Sound";
-import NewGame from "../NewGame/NewGame";
+import { NewGame, Log } from "../NewGame/NewGame";
 
 import "./App.scss";
 
@@ -17,17 +17,21 @@ class App extends Component {
         isGame: false,
         isStats: false,
         isSettings: false,
+        isLog: false,
+        isRules: false,
       },
+      playerName: "",
     };
   }
 
-  resetFlags = (mode) => {
+  resetFlags = (mode, ...restMode) => {
     const cloneFlags = JSON.parse(JSON.stringify(this.state.flags));
     for (let key in cloneFlags) {
       cloneFlags[key] = false;
     }
     cloneFlags[mode] = true;
-    console.log(cloneFlags);
+    cloneFlags[restMode] = true;
+    // console.log(cloneFlags);
     return this.setState({
       flags: cloneFlags,
     });
@@ -38,7 +42,8 @@ class App extends Component {
   };
 
   handleNewGameBtn = () => {
-    this.resetFlags("isGame");
+    this.resetFlags("isLog");
+    // console.log(this.state);
   };
   handleStatsBtn = () => {
     this.resetFlags("isStats");
@@ -46,9 +51,35 @@ class App extends Component {
   handleSettingsBtn = () => {
     this.resetFlags("isSettings");
   };
+  handleLogBtn = () => {
+    console.log(this.state);
+    this.resetFlags("isGame");
+  };
+  // handleKeyPress = (e) => {
+  //   if (e.key == "Enter") {
+  //     this.setState({
+  //       playerName: e.target.value,
+  //     });
+  //     this.resetFlags("isGame");
+  //   }
+  // };
+
+  getName = (e) => {
+    this.setState({
+      playerName: e.target.value,
+    });
+  };
 
   render() {
-    let { isMenu, isGame, isSettings, isStats } = this.state.flags;
+    let {
+      isMenu,
+      isGame,
+      isSettings,
+      isStats,
+      isLog,
+      isRules,
+    } = this.state.flags;
+
     return (
       <div>
         <Helmet>
@@ -63,7 +94,13 @@ class App extends Component {
             settingsBtnChange={this.handleSettingsBtn}
           />
         ) : null}
-        {isGame ? <NewGame /> : null}
+        {isLog ? (
+          <Log
+            startGame={this.handleLogBtn}
+            getName={this.getName}
+            playerName={this.state.playerName}
+          />
+        ) : null}
       </div>
     );
   }
