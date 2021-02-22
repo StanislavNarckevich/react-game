@@ -13,6 +13,8 @@ class Music extends React.Component {
 
   componentDidMount() {
     this.audio.volume = 0.1;
+    this.audio.loop = true;
+    this.audio.autoplay = true;
     console.log("mount");
     this.audio.addEventListener("ended", () => this.setState({ play: false }));
   }
@@ -26,7 +28,8 @@ class Music extends React.Component {
 
   togglePlay = () => {
     this.setState({ play: !this.state.play }, () => {
-      this.state.play ? this.audio.play() : this.audio.pause();
+      //***
+      this.state.play ? this.audio.pause() : this.audio.play();
     });
   };
 
@@ -34,7 +37,7 @@ class Music extends React.Component {
     return (
       <div>
         <button className="Sound" onClick={this.togglePlay}>
-          {this.state.play ? "Pause" : "Play music"}
+          {!this.state.play ? "Pause" : "Play music"}
         </button>
       </div>
     );

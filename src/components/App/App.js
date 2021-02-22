@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet";
 import MainMenu from "../Main-menu/Main-menu";
 import MenuBtn from "../MenuBtn/MenuBtn";
 import Music from "../Sound/Sound";
-import { NewGame, Log } from "../NewGame/NewGame";
+import { StartGame, Log } from "../NewGame/NewGame";
 
 import "./App.scss";
 
@@ -24,14 +24,14 @@ class App extends Component {
     };
   }
 
-  resetFlags = (mode, ...restMode) => {
+  resetFlags = (...mode) => {
     const cloneFlags = JSON.parse(JSON.stringify(this.state.flags));
     for (let key in cloneFlags) {
       cloneFlags[key] = false;
     }
     cloneFlags[mode] = true;
-    cloneFlags[restMode] = true;
-    // console.log(cloneFlags);
+    // cloneFlags[restMode] = true;
+    console.log(cloneFlags);
     return this.setState({
       flags: cloneFlags,
     });
@@ -39,11 +39,13 @@ class App extends Component {
 
   handleMenuBtn = () => {
     this.resetFlags("isMenu");
+    this.setState({
+      playerName: "",
+    });
   };
 
   handleNewGameBtn = () => {
     this.resetFlags("isLog");
-    // console.log(this.state);
   };
   handleStatsBtn = () => {
     this.resetFlags("isStats");
@@ -86,7 +88,7 @@ class App extends Component {
           <title>Card-game</title>
         </Helmet>
         <MenuBtn menuBtnChange={this.handleMenuBtn} />
-        <Music />
+        {/* <Music /> */}
         {isMenu ? (
           <MainMenu
             newGameBtnChange={this.handleNewGameBtn}
@@ -101,6 +103,7 @@ class App extends Component {
             playerName={this.state.playerName}
           />
         ) : null}
+        {isGame ? <StartGame /> : null}
       </div>
     );
   }
