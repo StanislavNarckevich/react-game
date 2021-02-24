@@ -9,8 +9,8 @@ import { StartGame, Log } from "../NewGame/NewGame";
 import "./App.scss";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       flags: {
         isMenu: true,
@@ -19,6 +19,7 @@ class App extends Component {
         isSettings: false,
         isLog: false,
         isRules: false,
+        isStart: false,
       },
       playerName: "",
     };

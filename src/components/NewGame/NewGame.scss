@@ -44,7 +44,7 @@
     height: 70%;
     background-image: url("../../assets/images/table-cover.jpg");
     background-position: center;
-    background-size: contain;
+    background-size: cover;
     border-radius: 3% 3% 50% 50%;
     position: relative;
     top: 60%;
@@ -90,10 +90,19 @@
     border-radius: 35%;
   }
 
-  button:nth-child(2) {
+  button[disabled] {
+    background: rgb(99, 97, 97);
+  }
+
+  button:nth-child(4) {
     right: 20%;
   }
-  button:nth-child(3) {
+  button:nth-child(5) {
     right: 10%;
+  }
+
+  .player-hand {
+    position: absolute;
+    top: 0;
   }
 }
