@@ -15,7 +15,7 @@ class Music extends React.Component {
     this.audio.volume = 0.1;
     this.audio.loop = true;
     this.audio.autoplay = true;
-    console.log("mount");
+    // console.log("mount");
     this.audio.addEventListener("ended", () => this.setState({ play: false }));
   }
 
@@ -23,7 +23,7 @@ class Music extends React.Component {
     this.audio.removeEventListener("ended", () =>
       this.setState({ play: false })
     );
-    console.log("unmount");
+    // console.log("unmount");
   }
 
   togglePlay = () => {

@@ -32,7 +32,7 @@ class App extends Component {
     }
     cloneFlags[mode] = true;
     // cloneFlags[restMode] = true;
-    console.log(cloneFlags);
+    // console.log(cloneFlags);
     return this.setState({
       flags: cloneFlags,
     });
@@ -55,7 +55,7 @@ class App extends Component {
     this.resetFlags("isSettings");
   };
   handleLogBtn = () => {
-    console.log(this.state);
+    // console.log(this.state);
     this.resetFlags("isGame");
   };
   // handleKeyPress = (e) => {

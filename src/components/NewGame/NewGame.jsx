@@ -3,10 +3,6 @@ import "./NewGame.scss";
 import { data as cardsData } from "./../../data";
 import cardBackSide from "./../../assets/images/cards/card-back.png";
 
-cardsData.sort(function () {
-  return Math.random() - 0.5;
-});
-
 function Log(props) {
   return (
     <div className="Log">
@@ -22,6 +18,10 @@ function Log(props) {
 class StartGame extends Component {
   constructor() {
     super();
+    cardsData.sort(function () {
+      return Math.random() - 0.5;
+    });
+
     this.state = {
       deck: cardsData,
       playerHand: [],
@@ -35,7 +35,6 @@ class StartGame extends Component {
 
   componentDidMount() {
     this.newGame();
-    console.log(this.state);
   }
 
   newGame = () => {
@@ -43,7 +42,9 @@ class StartGame extends Component {
     setTimeout(this.playerTakeCard, 1500);
   };
 
-  gameOver = () => {};
+  gameOver = () => {
+    console.log(this.state.opponentScore);
+  };
 
   playerTakeCard = () => {
     const deck = [...this.state.deck];
@@ -54,7 +55,6 @@ class StartGame extends Component {
     let playerScore = playerHand.reduce((acc, current) => {
       return acc + current.value;
     }, 0);
-
     this.setState({
       deck: deck,
       playerHand: playerHand,
@@ -67,37 +67,30 @@ class StartGame extends Component {
     const card = deck.pop();
     const opponentHand = [...this.state.opponentHand];
     opponentHand.push(card);
+    let opponentScore = opponentHand.reduce((acc, current) => {
+      return acc + current.value;
+    }, 0);
     this.setState({
       deck: deck,
       opponentHand: opponentHand,
+      opponentScore: opponentScore,
     });
   };
 
   opponentTurn = () => {
-    const opponentHand = [...this.state.opponentHand];
-    let opponentScore = opponentHand.reduce((acc, current) => {
-      return acc + current.value;
-    }, 0);
+    const opponentScore = this.state.opponentScore;
     if (opponentScore < 17) {
       this.opponentTakeCard();
-      this.setState({
-        opponentScore: opponentScore,
-      });
       setTimeout(this.opponentTurn, 1000);
     } else if (opponentScore < 20 && Math.random() * 10 > 7) {
       setTimeout(this.opponentTakeCard, 1000);
-      this.setState({
-        opponentScore: opponentScore,
-      });
     } else {
       this.gameOver();
     }
-    console.log(this.state);
   };
 
   handleHitBtn = () => {
     this.playerTakeCard();
-    console.log(this.state);
   };
 
   handleStandBtn = () => {
@@ -106,10 +99,11 @@ class StartGame extends Component {
     });
 
     this.opponentTurn();
-    console.log(this.state);
+    console.log(console.log("playerScore", this.state.playerScore));
   };
 
   render() {
+    console.log("render");
     let { isOpponentTurn, deck, playerHand, opponentHand } = this.state;
     if (deck.length === 0) {
       alert("Deck is empty");
@@ -131,7 +125,9 @@ class StartGame extends Component {
         </div>
         <div className="opponent-hand">
           {opponentHand.map((card) => {
-            return <img src={card.src} alt="card" className="card " />;
+            return (
+              <img src={card.src} alt="card" className="card " key={card.src} />
+            );
           })}
         </div>
         <button
