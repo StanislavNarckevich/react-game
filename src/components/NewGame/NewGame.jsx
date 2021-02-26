@@ -46,29 +46,35 @@ class StartGame extends Component {
 
   gameOver = () => {
     const { playerScore, opponentScore } = this.state;
+    const win = () => {
+      alert(
+        `you win  playerscore ${playerScore}, opponentScore ${opponentScore}`
+      );
+      this.setState({
+        result: "win",
+        isGameOver: true,
+      });
+    };
     if (playerScore > opponentScore && playerScore < 22) {
-      alert(
-        `you win  playerscore ${playerScore}, opponentScore ${opponentScore}`
-      );
-      this.setState({ result: "win" });
+      win();
     } else if (playerScore < opponentScore && playerScore > 21) {
-      alert(
-        `you win  playerscore ${playerScore}, opponentScore ${opponentScore}`
-      );
-      this.setState({ result: "win" });
+      win();
     } else if (playerScore < opponentScore && opponentScore > 21) {
-      alert(
-        `you win  playerscore ${playerScore}, opponentScore ${opponentScore}`
-      );
-      this.setState({ result: "win" });
+      win();
     } else if (playerScore === opponentScore) {
       alert("TIE");
-      this.setState({ result: "tie" });
+      this.setState({
+        result: "tie",
+        isGameOver: true,
+      });
     } else {
       alert(
         `you lose  playerscore ${playerScore}, opponentScore ${opponentScore}`
       );
-      this.setState({ result: "lose" });
+      this.setState({
+        result: "lose",
+        isGameOver: true,
+      });
     }
   };
 
@@ -78,9 +84,16 @@ class StartGame extends Component {
     const playerHand = [...this.state.playerHand];
     playerHand.push(card);
 
+    let playerAltScore = playerHand.reduce((acc, current) => {
+      return acc + current.altValue;
+    }, 0);
+
     let playerScore = playerHand.reduce((acc, current) => {
       return acc + current.value;
     }, 0);
+
+    playerScore = playerScore < 21 ? playerScore : playerAltScore;
+
     this.setState({
       deck: deck,
       playerHand: playerHand,
@@ -93,9 +106,16 @@ class StartGame extends Component {
     const card = deck.pop();
     const opponentHand = [...this.state.opponentHand];
     opponentHand.push(card);
+
     let opponentScore = opponentHand.reduce((acc, current) => {
       return acc + current.value;
     }, 0);
+
+    let opponentAltScore = opponentHand.reduce((acc, current) => {
+      return acc + current.altValue;
+    }, 0);
+    opponentScore = opponentScore < 21 ? opponentScore : opponentAltScore;
+
     this.setState({
       deck: deck,
       opponentHand: opponentHand,
@@ -148,10 +168,16 @@ class StartGame extends Component {
   };
 
   render() {
-    console.log("render");
-    let { isOpponentTurn, deck, playerHand, opponentHand } = this.state;
+    let {
+      isOpponentTurn,
+      isGameOver,
+      deck,
+      playerHand,
+      opponentHand,
+    } = this.state;
     if (deck.length === 0) {
       alert("Deck is empty");
+      this.restart();
     }
     return (
       <div className="game-mode">
@@ -187,7 +213,7 @@ class StartGame extends Component {
         >
           Stand
         </button>
-        <button onClick={this.restart}>repeat</button>
+        {isGameOver ? <button onClick={this.restart}>repeat</button> : null}
       </div>
     );
   }

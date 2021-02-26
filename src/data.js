@@ -55,50 +55,62 @@ const data = [
   {
     src: clubs_of_2,
     value: 2,
+    altValue: 2,
   },
   {
     src: clubs_of_3,
     value: 3,
+    altValue: 3,
   },
   {
     src: clubs_of_4,
     value: 4,
+    altValue: 4,
   },
   {
     src: clubs_of_5,
     value: 5,
+    altValue: 5,
   },
   {
     src: clubs_of_6,
     value: 6,
+    altValue: 6,
   },
   {
     src: clubs_of_7,
     value: 7,
+    altValue: 7,
   },
   {
     src: clubs_of_8,
     value: 8,
+    altValue: 8,
   },
   {
     src: clubs_of_9,
     value: 9,
+    altValue: 9,
   },
   {
     src: clubs_of_10,
     value: 10,
+    altValue: 10,
   },
   {
     src: clubs_of_jack,
     value: 10,
+    altValue: 10,
   },
   {
     src: clubs_of_queen,
     value: 10,
+    altValue: 10,
   },
   {
     src: clubs_of_king,
     value: 10,
+    altValue: 10,
   },
   {
     src: clubs_of_ace,
@@ -108,50 +120,62 @@ const data = [
   {
     src: hearts_of_2,
     value: 2,
+    altValue: 2,
   },
   {
     src: hearts_of_3,
     value: 3,
+    altValue: 3,
   },
   {
     src: hearts_of_4,
     value: 4,
+    altValue: 4,
   },
   {
     src: hearts_of_5,
     value: 5,
+    altValue: 5,
   },
   {
     src: hearts_of_6,
     value: 6,
+    altValue: 6,
   },
   {
     src: hearts_of_7,
     value: 7,
+    altValue: 7,
   },
   {
     src: hearts_of_8,
     value: 8,
+    altValue: 8,
   },
   {
     src: hearts_of_9,
     value: 9,
+    altValue: 9,
   },
   {
     src: hearts_of_10,
     value: 10,
+    altValue: 10,
   },
   {
     src: hearts_of_jack,
     value: 10,
+    altValue: 10,
   },
   {
     src: hearts_of_queen,
     value: 10,
+    altValue: 10,
   },
   {
     src: hearts_of_king,
     value: 10,
+    altValue: 10,
   },
   {
     src: hearts_of_ace,
@@ -161,50 +185,62 @@ const data = [
   {
     src: diamonds_of_2,
     value: 2,
+    altValue: 2,
   },
   {
     src: diamonds_of_3,
     value: 3,
+    altValue: 3,
   },
   {
     src: diamonds_of_4,
     value: 4,
+    altValue: 4,
   },
   {
     src: diamonds_of_5,
     value: 5,
+    altValue: 5,
   },
   {
     src: diamonds_of_6,
     value: 6,
+    altValue: 6,
   },
   {
     src: diamonds_of_7,
     value: 7,
+    altValue: 7,
   },
   {
     src: diamonds_of_8,
     value: 8,
+    altValue: 8,
   },
   {
     src: diamonds_of_9,
     value: 9,
+    altValue: 9,
   },
   {
     src: diamonds_of_10,
     value: 10,
+    altValue: 10,
   },
   {
     src: diamonds_of_jack,
     value: 10,
+    altValue: 10,
   },
   {
     src: diamonds_of_queen,
     value: 10,
+    altValue: 10,
   },
   {
     src: diamonds_of_king,
     value: 10,
+    altValue: 10,
   },
   {
     src: diamonds_of_ace,
@@ -214,50 +250,62 @@ const data = [
   {
     src: spades_of_2,
     value: 2,
+    altValue: 2,
   },
   {
     src: spades_of_3,
     value: 3,
+    altValue: 3,
   },
   {
     src: spades_of_4,
     value: 4,
+    altValue: 4,
   },
   {
     src: spades_of_5,
     value: 5,
+    altValue: 5,
   },
   {
     src: spades_of_6,
     value: 6,
+    altValue: 6,
   },
   {
     src: spades_of_7,
     value: 7,
+    altValue: 7,
   },
   {
     src: spades_of_8,
     value: 8,
+    altValue: 8,
   },
   {
     src: spades_of_9,
     value: 9,
+    altValue: 9,
   },
   {
     src: spades_of_10,
     value: 10,
+    altValue: 10,
   },
   {
     src: spades_of_jack,
     value: 10,
+    altValue: 10,
   },
   {
     src: spades_of_queen,
     value: 10,
+    altValue: 10,
   },
   {
     src: spades_of_king,
     value: 10,
+    altValue: 10,
   },
   {
     src: spades_of_ace,
