@@ -21,12 +21,14 @@ class StartGame extends Component {
     cardsData.sort(function () {
       return Math.random() - 0.5;
     });
+    const deck = [...cardsData];
 
     this.state = {
-      deck: cardsData,
+      deck: deck,
       playerHand: [],
       opponentHand: [],
       isOpponentTurn: false,
+      isGameOver: false,
       opponentScore: 0,
       playerScore: 0,
       result: null,
@@ -43,7 +45,31 @@ class StartGame extends Component {
   };
 
   gameOver = () => {
-    console.log(this.state.opponentScore);
+    const { playerScore, opponentScore } = this.state;
+    if (playerScore > opponentScore && playerScore < 22) {
+      alert(
+        `you win  playerscore ${playerScore}, opponentScore ${opponentScore}`
+      );
+      this.setState({ result: "win" });
+    } else if (playerScore < opponentScore && playerScore > 21) {
+      alert(
+        `you win  playerscore ${playerScore}, opponentScore ${opponentScore}`
+      );
+      this.setState({ result: "win" });
+    } else if (playerScore < opponentScore && opponentScore > 21) {
+      alert(
+        `you win  playerscore ${playerScore}, opponentScore ${opponentScore}`
+      );
+      this.setState({ result: "win" });
+    } else if (playerScore === opponentScore) {
+      alert("TIE");
+      this.setState({ result: "tie" });
+    } else {
+      alert(
+        `you lose  playerscore ${playerScore}, opponentScore ${opponentScore}`
+      );
+      this.setState({ result: "lose" });
+    }
   };
 
   playerTakeCard = () => {
@@ -82,8 +108,6 @@ class StartGame extends Component {
     if (opponentScore < 17) {
       this.opponentTakeCard();
       setTimeout(this.opponentTurn, 1000);
-    } else if (opponentScore < 20 && Math.random() * 10 > 7) {
-      setTimeout(this.opponentTakeCard, 1000);
     } else {
       this.gameOver();
     }
@@ -99,7 +123,28 @@ class StartGame extends Component {
     });
 
     this.opponentTurn();
-    console.log(console.log("playerScore", this.state.playerScore));
+  };
+
+  restart = () => {
+    if (this.state.deck.length < 2) {
+      cardsData.sort(function () {
+        return Math.random() - 0.5;
+      });
+      const deck = [...cardsData];
+      this.setState({
+        deck: deck,
+      });
+    }
+
+    this.setState({
+      playerHand: [],
+      opponentHand: [],
+      isOpponentTurn: false,
+      isGameOver: false,
+      opponentScore: 0,
+      playerScore: 0,
+    });
+    this.newGame();
   };
 
   render() {
@@ -142,6 +187,7 @@ class StartGame extends Component {
         >
           Stand
         </button>
+        <button onClick={this.restart}>repeat</button>
       </div>
     );
   }
