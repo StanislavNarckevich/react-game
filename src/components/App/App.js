@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet";
 import MainMenu from "../Main-menu/Main-menu";
 import MenuBtn from "../MenuBtn/MenuBtn";
 import Music from "../Sound/Sound";
+import Settings from "../Settings/Settings";
 import { StartGame, Log } from "../NewGame/NewGame";
 
 import "./App.scss";
@@ -55,7 +56,6 @@ class App extends Component {
     this.resetFlags("isSettings");
   };
   handleLogBtn = () => {
-    // console.log(this.state);
     this.resetFlags("isGame");
   };
   // handleKeyPress = (e) => {
@@ -105,6 +105,9 @@ class App extends Component {
           />
         ) : null}
         {isGame ? <StartGame /> : null}
+        {isSettings ? <Settings /> : null}
+
+        {/*  */}
       </div>
     );
   }

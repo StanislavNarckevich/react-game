@@ -184,14 +184,12 @@ class StartGame extends Component {
           <div className="card-place"></div>
           <div className="card-place"></div>
 
-          <img src={cardBackSide} alt="card-backside" className="reduce-size" />
-          <img src={cardBackSide} alt="card-backside" className="reduce-size" />
+          <img src={cardBackSide} alt="card-backside" className="card-size" />
+          <img src={cardBackSide} alt="card-backside" className="card-size" />
         </div>
         <div className="player-hand">
           {playerHand.map((card) => {
-            return (
-              <img src={card.src} alt="card" className="card reduce-size" />
-            );
+            return <img src={card.src} alt="card" className="card card-size" />;
           })}
         </div>
         <div className="opponent-hand">
@@ -200,7 +198,7 @@ class StartGame extends Component {
               <img
                 src={card.src}
                 alt="card"
-                className="card  reduce-size"
+                className="card  card-size"
                 key={card.src}
               />
             );
