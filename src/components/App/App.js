@@ -1,5 +1,7 @@
+// import Fullscreen from "fullscreen-react";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { render } from "@testing-library/react";
-import { Component } from "react";
+import { Component, useCallback } from "react";
 import { Helmet } from "react-helmet";
 import MainMenu from "../Main-menu/Main-menu";
 import MenuBtn from "../MenuBtn/MenuBtn";
@@ -9,7 +11,19 @@ import { StartGame, Log } from "../NewGame/NewGame";
 
 import "./App.scss";
 
-class App extends Component {
+export default function App() {
+  const handle = useFullScreenHandle();
+
+  return (
+    <div>
+      <FullScreen handle={handle}>
+        <AppBody fullscreenBtn={handle.enter} />;
+      </FullScreen>
+    </div>
+  );
+}
+
+class AppBody extends Component {
   constructor() {
     super();
     this.state = {
@@ -32,8 +46,6 @@ class App extends Component {
       cloneFlags[key] = false;
     }
     cloneFlags[mode] = true;
-    // cloneFlags[restMode] = true;
-    // console.log(cloneFlags);
     return this.setState({
       flags: cloneFlags,
     });
@@ -105,12 +117,12 @@ class App extends Component {
           />
         ) : null}
         {isGame ? <StartGame /> : null}
-        {isSettings ? <Settings /> : null}
+        {isSettings ? (
+          <Settings fullscreenBtn={this.props.fullscreenBtn} />
+        ) : null}
 
         {/*  */}
       </div>
     );
   }
 }
-
-export default App;
