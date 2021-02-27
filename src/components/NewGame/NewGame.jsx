@@ -47,9 +47,7 @@ class StartGame extends Component {
   gameOver = () => {
     const { playerScore, opponentScore } = this.state;
     const win = () => {
-      alert(
-        `you win  playerscore ${playerScore}, opponentScore ${opponentScore}`
-      );
+      alert(`YOU WIN`);
       this.setState({
         result: "win",
         isGameOver: true,
@@ -68,9 +66,7 @@ class StartGame extends Component {
         isGameOver: true,
       });
     } else {
-      alert(
-        `you lose  playerscore ${playerScore}, opponentScore ${opponentScore}`
-      );
+      alert(`YOU LOSE`);
       this.setState({
         result: "lose",
         isGameOver: true,
@@ -92,7 +88,7 @@ class StartGame extends Component {
       return acc + current.value;
     }, 0);
 
-    playerScore = playerScore < 21 ? playerScore : playerAltScore;
+    playerScore = playerScore <= 21 ? playerScore : playerAltScore;
 
     this.setState({
       deck: deck,
@@ -114,7 +110,7 @@ class StartGame extends Component {
     let opponentAltScore = opponentHand.reduce((acc, current) => {
       return acc + current.altValue;
     }, 0);
-    opponentScore = opponentScore < 21 ? opponentScore : opponentAltScore;
+    opponentScore = opponentScore <= 21 ? opponentScore : opponentAltScore;
 
     this.setState({
       deck: deck,
@@ -174,6 +170,8 @@ class StartGame extends Component {
       deck,
       playerHand,
       opponentHand,
+      opponentScore,
+      playerScore,
     } = this.state;
     if (deck.length === 0) {
       alert("Deck is empty");
@@ -186,18 +184,25 @@ class StartGame extends Component {
           <div className="card-place"></div>
           <div className="card-place"></div>
 
-          <img src={cardBackSide} alt="card-backside" />
-          <img src={cardBackSide} alt="card-backside" />
+          <img src={cardBackSide} alt="card-backside" className="reduce-size" />
+          <img src={cardBackSide} alt="card-backside" className="reduce-size" />
         </div>
         <div className="player-hand">
           {playerHand.map((card) => {
-            return <img src={card.src} alt="card" className="card " />;
+            return (
+              <img src={card.src} alt="card" className="card reduce-size" />
+            );
           })}
         </div>
         <div className="opponent-hand">
           {opponentHand.map((card) => {
             return (
-              <img src={card.src} alt="card" className="card " key={card.src} />
+              <img
+                src={card.src}
+                alt="card"
+                className="card  reduce-size"
+                key={card.src}
+              />
             );
           })}
         </div>
@@ -214,6 +219,16 @@ class StartGame extends Component {
           Stand
         </button>
         {isGameOver ? <button onClick={this.restart}>repeat</button> : null}
+        <div className="score">
+          <label>
+            Opponent score
+            <input value={opponentScore} disabled={true} type="text" />
+          </label>
+          <label>
+            Your score
+            <input value={playerScore} disabled={true} type="text" />
+          </label>
+        </div>
       </div>
     );
   }

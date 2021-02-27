@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&family=Merienda:wght@400;700&display=swap");
 
+.reduce-size {
+  width: 4vw;
+  height: 12vh;
+}
 .Log {
   width: 30%;
   height: 30%;
@@ -106,6 +110,41 @@
 
   .player-hand {
     position: absolute;
-    top: 0;
+    bottom: 16%;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .opponent-hand {
+    position: absolute;
+    top: 14%;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .score {
+    position: absolute;
+    right: 10%;
+    bottom: 45%;
+    width: 10%;
+    label {
+      display: flex;
+      color: whitesmoke;
+      font-size: 1.1em;
+      flex-direction: column;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      // margin-left: 3%;
+
+      input {
+        margin-top: 5px;
+        // width: 3%;
+        height: 2%;
+        font-size: 1.1em;
+        color: darkblue;
+      }
+    }
   }
 }
