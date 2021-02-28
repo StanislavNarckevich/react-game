@@ -36,6 +36,7 @@ class AppBody extends Component {
         isStart: false,
       },
       playerName: "",
+      musicVolume: 50,
     };
   }
 
@@ -84,6 +85,12 @@ class AppBody extends Component {
     });
   };
 
+  changeMusicVolume = (e) => {
+    this.setState({
+      musicVolume: parseInt(e.target.value),
+    });
+  };
+
   render() {
     let {
       isMenu,
@@ -100,7 +107,6 @@ class AppBody extends Component {
           <title>Card-game</title>
         </Helmet>
         <MenuBtn menuBtnChange={this.handleMenuBtn} />
-        {/* <Music /> */}
         {isMenu ? (
           <MainMenu
             newGameBtnChange={this.handleNewGameBtn}
@@ -117,8 +123,13 @@ class AppBody extends Component {
         ) : null}
         {isGame ? <StartGame /> : null}
         {isSettings ? (
-          <Settings fullscreenBtn={this.props.fullscreenBtn} />
+          <Settings
+            fullscreenBtn={this.props.fullscreenBtn}
+            changeMusicVolume={this.changeMusicVolume}
+            musicVolume={this.state.musicVolume}
+          />
         ) : null}
+        <Music musicVolume={this.state.musicVolume} />
       </div>
     );
   }

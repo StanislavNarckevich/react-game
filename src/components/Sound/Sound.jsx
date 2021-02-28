@@ -12,32 +12,31 @@ class Music extends React.Component {
   audio = new Audio(bgSound);
 
   componentDidMount() {
-    this.audio.volume = 0.1;
-    this.audio.loop = true;
-    this.audio.autoplay = true;
+    // this.audio.autoplay = true;
     // console.log("mount");
-    this.audio.addEventListener("ended", () => this.setState({ play: false }));
+    // this.audio.addEventListener("ended", () => this.setState({ play: false }));
   }
 
   componentWillUnmount() {
-    this.audio.removeEventListener("ended", () =>
-      this.setState({ play: false })
-    );
-    // console.log("unmount");
+    // this.audio.removeEventListener("ended", () =>
+    //   this.setState({ play: false })
+    // );
   }
 
   togglePlay = () => {
     this.setState({ play: !this.state.play }, () => {
-      //***
-      this.state.play ? this.audio.pause() : this.audio.play();
+      this.state.play ? this.audio.play() : this.audio.pause();
     });
   };
 
   render() {
+    this.audio.volume = this.props.musicVolume / 100;
+    this.audio.loop = true;
+
     return (
       <div>
         <button className="Sound" onClick={this.togglePlay}>
-          {!this.state.play ? "Pause" : "Play music"}
+          {this.state.play ? "Pause" : "Play music"}
         </button>
       </div>
     );

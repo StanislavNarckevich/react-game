@@ -7,35 +7,28 @@ export default function Settings(props) {
     <div className="settings-page">
       <div className="settings-window">
         <button onClick={props.fullscreenBtn}>Go Fullscreen</button>
-        <Volume name={"Music Volume"} />
+        <Volume
+          changeMusicVolume={props.changeMusicVolume}
+          musicVolume={props.musicVolume}
+        />
       </div>
     </div>
   );
 }
 
 function Volume(props) {
-  const [value, onChange] = useState(1);
-  useEffect(() => {
-    const ele = document.querySelector(".buble");
-    if (ele) {
-      ele.style.left = `${Number(value / 4)}px`;
-    }
-  });
   return (
     <div className="slider-parent">
       <label>
-        {props.name}
+        Music volume
         <input
           type="range"
           min="1"
           max="100"
-          value={value}
-          onChange={({ target: { value: radius } }) => {
-            onChange(radius);
-          }}
+          value={props.musicVolume}
+          onChange={props.changeMusicVolume}
         />
       </label>
-      {/* <div className="buble">{value}</div> */}
     </div>
   );
 }
