@@ -1,4 +1,3 @@
-// import Fullscreen from "fullscreen-react";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { render } from "@testing-library/react";
 import { Component, useCallback } from "react";
@@ -17,7 +16,7 @@ export default function App() {
   return (
     <div>
       <FullScreen handle={handle}>
-        <AppBody fullscreenBtn={handle.enter} />;
+        <AppBody fullscreenBtn={handle.enter} />
       </FullScreen>
     </div>
   );
@@ -120,8 +119,6 @@ class AppBody extends Component {
         {isSettings ? (
           <Settings fullscreenBtn={this.props.fullscreenBtn} />
         ) : null}
-
-        {/*  */}
       </div>
     );
   }
