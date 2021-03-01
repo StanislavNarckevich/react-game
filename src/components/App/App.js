@@ -39,6 +39,7 @@ class AppBody extends Component {
       musicVolume: 50,
       soundsOn: true,
       soundsVolume: 50,
+      table: "green-table",
     };
   }
 
@@ -82,7 +83,6 @@ class AppBody extends Component {
   // };
   toggleSoundsOn = () => {
     this.setState({ soundsOn: !this.state.soundsOn });
-    console.log(this.state);
   };
 
   getName = (e) => {
@@ -103,7 +103,14 @@ class AppBody extends Component {
     });
   };
 
+  changeTable = (e) => {
+    this.setState({
+      table: e.target.value,
+    });
+  };
+
   render() {
+    console.log(this.state);
     let {
       isMenu,
       isGame,
@@ -137,15 +144,18 @@ class AppBody extends Component {
           <StartGame
             soundsVolume={this.state.soundsVolume}
             soundsOn={this.state.soundsOn}
+            table={this.state.table}
           />
         ) : null}
         {isSettings ? (
           <Settings
             fullscreenBtn={this.props.fullscreenBtn}
+            changeTable={this.changeTable}
             changeMusicVolume={this.changeMusicVolume}
-            musicVolume={this.state.musicVolume}
             changeSoundsVolume={this.changeSoundsVolume}
+            musicVolume={this.state.musicVolume}
             soundsVolume={this.state.soundsVolume}
+            selectedTable={this.state.table}
           />
         ) : null}
         <Music musicVolume={this.state.musicVolume} />

@@ -16,6 +16,10 @@ export default function Settings(props) {
           changeSoundsVolume={props.changeSoundsVolume}
           soundsVolume={props.soundsVolume}
         />
+        <ChoiceTable
+          changeTable={props.changeTable}
+          selectedTable={props.selectedTable}
+        />
       </div>
     </div>
   );
@@ -51,6 +55,36 @@ function SoundsVolume(props) {
           onChange={props.changeSoundsVolume}
         />
       </label>
+    </div>
+  );
+}
+
+function ChoiceTable(props) {
+  return (
+    <div className="">
+      <span>Choice table</span>
+      <select name="select" onChange={props.changeTable}>
+        {/* <option> Select color table</option> */}
+        <option
+          value="yellow-table"
+          selected={props.selectedTable === "yellow-table" ? false : true}
+        >
+          {" "}
+          Yellow
+        </option>
+        <option
+          value="green-table"
+          selected={props.selectedTable === "green-table" ? true : false}
+        >
+          Green
+        </option>
+        <option
+          value="blue-table"
+          selected={props.selectedTable === "blue-table" ? true : false}
+        >
+          Blue{" "}
+        </option>
+      </select>
     </div>
   );
 }

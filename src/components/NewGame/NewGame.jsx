@@ -208,7 +208,7 @@ class StartGame extends Component {
     }
     return (
       <div className="game-mode">
-        <div className="game-field">
+        <div className={"game-field " + this.props.table}>
           <div className="card-place"></div>
           <div className="card-place"></div>
           <div className="card-place"></div>

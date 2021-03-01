@@ -42,11 +42,20 @@
   height: 100vh;
   position: relative;
 
+  .green-table {
+    background-image: url("../../assets/images/table-cover.jpg");
+  }
+  .-table {
+    background-image: url("../../assets/images/table-cover.jpg");
+  }
+  .-table {
+    background-image: url("../../assets/images/table-cover.jpg");
+  }
+
   .game-field {
     border: rgba($color: #2b1b02, $alpha: 1) 9px inset;
     width: 45%;
     height: 70%;
-    background-image: url("../../assets/images/table-cover.jpg");
     background-position: center;
     background-size: cover;
     border-radius: 3% 3% 50% 50%;
