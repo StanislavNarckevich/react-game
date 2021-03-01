@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import "./NewGame.scss";
 import { data as cardsData } from "./../../data";
 import cardBackSide from "./../../assets/images/cards/card-back.png";
+import cardSound from "../../assets/sounds/get-card.mp3";
+import winSound from "../../assets/sounds/win.mp3";
+import loseSound from "../../assets/sounds/lose.mp3";
+import tieSound from "../../assets/sounds/tie.mp3";
 
 function Log(props) {
   return (
@@ -35,6 +39,11 @@ class StartGame extends Component {
     };
   }
 
+  getCardSound = new Audio(cardSound);
+  winSound = new Audio(winSound);
+  loseSound = new Audio(loseSound);
+  tieSound = new Audio(tieSound);
+
   componentDidMount() {
     this.newGame();
   }
@@ -47,6 +56,10 @@ class StartGame extends Component {
   gameOver = () => {
     const { playerScore, opponentScore } = this.state;
     const win = () => {
+      if (this.props.soundsOn) {
+        this.winSound.play();
+        this.winSound.volume = this.props.soundsVolume / 100;
+      }
       alert(`YOU WIN`);
       this.setState({
         result: "win",
@@ -60,12 +73,20 @@ class StartGame extends Component {
     } else if (playerScore < opponentScore && opponentScore > 21) {
       win();
     } else if (playerScore === opponentScore) {
+      if (this.props.soundsOn) {
+        this.tieSound.play();
+        this.tieSound.volume = this.props.soundsVolume / 100;
+      }
       alert("TIE");
       this.setState({
         result: "tie",
         isGameOver: true,
       });
     } else {
+      if (this.props.soundsOn) {
+        this.loseSound.volume = this.props.soundsVolume / 100;
+        this.loseSound.play();
+      }
       alert(`YOU LOSE`);
       this.setState({
         result: "lose",
@@ -75,6 +96,10 @@ class StartGame extends Component {
   };
 
   playerTakeCard = () => {
+    if (this.props.soundsOn) {
+      this.getCardSound.play();
+      this.getCardSound.volume = this.props.soundsVolume / 100;
+    }
     const deck = [...this.state.deck];
     const card = deck.pop();
     const playerHand = [...this.state.playerHand];
@@ -98,6 +123,10 @@ class StartGame extends Component {
   };
 
   opponentTakeCard = () => {
+    if (this.props.soundsOn) {
+      this.getCardSound.play();
+      this.getCardSound.volume = this.props.soundsVolume / 100;
+    }
     const deck = [...this.state.deck];
     const card = deck.pop();
     const opponentHand = [...this.state.opponentHand];

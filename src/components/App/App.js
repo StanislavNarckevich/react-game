@@ -4,7 +4,7 @@ import { Component, useCallback } from "react";
 import { Helmet } from "react-helmet";
 import MainMenu from "../Main-menu/Main-menu";
 import MenuBtn from "../MenuBtn/MenuBtn";
-import Music from "../Sound/Sound";
+import { Music, Sounds } from "../Sounds/Sounds";
 import Settings from "../Settings/Settings";
 import { StartGame, Log } from "../NewGame/NewGame";
 
@@ -37,6 +37,8 @@ class AppBody extends Component {
       },
       playerName: "",
       musicVolume: 50,
+      soundsOn: true,
+      soundsVolume: 50,
     };
   }
 
@@ -78,6 +80,10 @@ class AppBody extends Component {
   //     this.resetFlags("isGame");
   //   }
   // };
+  toggleSoundsOn = () => {
+    this.setState({ soundsOn: !this.state.soundsOn });
+    console.log(this.state);
+  };
 
   getName = (e) => {
     this.setState({
@@ -88,6 +94,12 @@ class AppBody extends Component {
   changeMusicVolume = (e) => {
     this.setState({
       musicVolume: parseInt(e.target.value),
+    });
+  };
+
+  changeSoundsVolume = (e) => {
+    this.setState({
+      soundsVolume: parseInt(e.target.value),
     });
   };
 
@@ -121,15 +133,26 @@ class AppBody extends Component {
             playerName={this.state.playerName}
           />
         ) : null}
-        {isGame ? <StartGame /> : null}
+        {isGame ? (
+          <StartGame
+            soundsVolume={this.state.soundsVolume}
+            soundsOn={this.state.soundsOn}
+          />
+        ) : null}
         {isSettings ? (
           <Settings
             fullscreenBtn={this.props.fullscreenBtn}
             changeMusicVolume={this.changeMusicVolume}
             musicVolume={this.state.musicVolume}
+            changeSoundsVolume={this.changeSoundsVolume}
+            soundsVolume={this.state.soundsVolume}
           />
         ) : null}
         <Music musicVolume={this.state.musicVolume} />
+        <Sounds
+          toggleSoundsOn={this.toggleSoundsOn}
+          soundsOn={this.state.soundsOn}
+        />
       </div>
     );
   }

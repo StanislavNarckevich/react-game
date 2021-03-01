@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import bgSound from "../../assets/sounds/bg-sound.mp3";
-import "./Sound.scss";
+import "./Sounds.scss";
 
 class Music extends React.Component {
   constructor() {
@@ -10,18 +10,6 @@ class Music extends React.Component {
     };
   }
   audio = new Audio(bgSound);
-
-  componentDidMount() {
-    // this.audio.autoplay = true;
-    // console.log("mount");
-    // this.audio.addEventListener("ended", () => this.setState({ play: false }));
-  }
-
-  componentWillUnmount() {
-    // this.audio.removeEventListener("ended", () =>
-    //   this.setState({ play: false })
-    // );
-  }
 
   togglePlay = () => {
     this.setState({ play: !this.state.play }, () => {
@@ -35,7 +23,7 @@ class Music extends React.Component {
 
     return (
       <div>
-        <button className="Sound" onClick={this.togglePlay}>
+        <button className="music" onClick={this.togglePlay}>
           {this.state.play ? "Pause" : "Play music"}
         </button>
       </div>
@@ -43,4 +31,14 @@ class Music extends React.Component {
   }
 }
 
-export default Music;
+function Sounds(props) {
+  return (
+    <div>
+      <button className="sound" onClick={props.toggleSoundsOn}>
+        {props.soundsOn ? "Sounds off" : "Sounds on"}
+      </button>
+    </div>
+  );
+}
+
+export { Music, Sounds };
