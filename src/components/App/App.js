@@ -40,6 +40,7 @@ class AppBody extends Component {
       soundsOn: true,
       soundsVolume: 50,
       table: "green-table",
+      showScorePanel: true,
     };
   }
 
@@ -109,6 +110,12 @@ class AppBody extends Component {
     });
   };
 
+  toggleScorePanel = (e) => {
+    this.setState({
+      showScorePanel: Boolean(parseInt(e.target.value)),
+    });
+  };
+
   render() {
     console.log(this.state);
     let {
@@ -145,6 +152,7 @@ class AppBody extends Component {
             soundsVolume={this.state.soundsVolume}
             soundsOn={this.state.soundsOn}
             table={this.state.table}
+            showScorePanel={this.state.showScorePanel}
           />
         ) : null}
         {isSettings ? (
@@ -153,9 +161,11 @@ class AppBody extends Component {
             changeTable={this.changeTable}
             changeMusicVolume={this.changeMusicVolume}
             changeSoundsVolume={this.changeSoundsVolume}
+            toggleScorePanel={this.toggleScorePanel}
             musicVolume={this.state.musicVolume}
             soundsVolume={this.state.soundsVolume}
             selectedTable={this.state.table}
+            showScorePanel={this.state.showScorePanel}
           />
         ) : null}
         <Music musicVolume={this.state.musicVolume} />

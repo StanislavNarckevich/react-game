@@ -246,16 +246,18 @@ class StartGame extends Component {
           Stand
         </button>
         {isGameOver ? <button onClick={this.restart}>repeat</button> : null}
-        <div className="score">
-          <label>
-            Opponent score
-            <input value={opponentScore} disabled={true} type="text" />
-          </label>
-          <label>
-            Your score
-            <input value={playerScore} disabled={true} type="text" />
-          </label>
-        </div>
+        {this.props.showScorePanel ? (
+          <div className="score">
+            <label>
+              Opponent score
+              <input value={opponentScore} disabled={true} type="text" />
+            </label>
+            <label>
+              Your score
+              <input value={playerScore} disabled={true} type="text" />
+            </label>
+          </div>
+        ) : null}
       </div>
     );
   }
