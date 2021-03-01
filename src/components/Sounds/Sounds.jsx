@@ -17,6 +17,19 @@ class Music extends React.Component {
     });
   };
 
+  componentDidMount() {
+    document.addEventListener("keydown", this.handleKeyPressM);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.handleKeyPressM);
+  }
+
+  handleKeyPressM = (e) => {
+    if (e.key == "m") {
+      this.togglePlay();
+    }
+  };
   render() {
     this.audio.volume = this.props.musicVolume / 100;
     this.audio.loop = true;

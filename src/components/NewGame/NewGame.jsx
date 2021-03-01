@@ -11,7 +11,13 @@ function Log(props) {
   return (
     <div className="Log">
       <span>Enter your name</span>
-      <input onChange={props.getName} type="text" placeholder="your name" />
+      <input
+        onChange={props.getName}
+        onKeyPress={props.handleEnter}
+        type="text"
+        placeholder="your name"
+        autoFocus={true}
+      />
       {props.playerName.length > 0 ? (
         <button onClick={props.startGame}>Submit</button>
       ) : null}
@@ -46,8 +52,33 @@ class StartGame extends Component {
 
   componentDidMount() {
     this.newGame();
+    document.addEventListener("keydown", this.handleKeyPressZ);
+    document.addEventListener("keydown", this.handleKeyPressX);
+    document.addEventListener("keydown", this.handleKeyPressR);
+    console.log("mount ");
+  }
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.handleKeyPressZ);
+    document.removeEventListener("keydown", this.handleKeyPressX);
+    document.removeEventListener("keydown", this.handleKeyPressR);
+    console.log("unmount");
   }
 
+  handleKeyPressZ = (e) => {
+    if (e.key == "z") {
+      this.playerTakeCard();
+    }
+  };
+  handleKeyPressX = (e) => {
+    if (e.key == "x") {
+      this.handleStandBtn();
+    }
+  };
+  handleKeyPressR = (e) => {
+    if (e.key == "r") {
+      this.restart();
+    }
+  };
   newGame = () => {
     setTimeout(this.playerTakeCard, 1000);
     setTimeout(this.playerTakeCard, 1500);

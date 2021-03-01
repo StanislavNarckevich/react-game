@@ -43,7 +43,15 @@ class AppBody extends Component {
       showScorePanel: true,
     };
   }
+  componentDidMount() {
+    document.addEventListener("keydown", this.handleKeyPressS);
+    document.addEventListener("keydown", this.handleKeyPressQ);
+  }
 
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.handleKeyPressS);
+    document.removeEventListener("keydown", this.handleKeyPressQ);
+  }
   resetFlags = (...mode) => {
     const cloneFlags = JSON.parse(JSON.stringify(this.state.flags));
     for (let key in cloneFlags) {
@@ -74,14 +82,26 @@ class AppBody extends Component {
   handleLogBtn = () => {
     this.resetFlags("isGame");
   };
-  // handleKeyPress = (e) => {
-  //   if (e.key == "Enter") {
-  //     this.setState({
-  //       playerName: e.target.value,
-  //     });
-  //     this.resetFlags("isGame");
-  //   }
-  // };
+  handleKeyPressEnter = (e) => {
+    if (e.key == "Enter") {
+      this.setState({
+        playerName: e.target.value,
+      });
+      this.resetFlags("isGame");
+    }
+  };
+
+  handleKeyPressS = (e) => {
+    if (e.key == "s") {
+      this.toggleSoundsOn();
+    }
+  };
+  handleKeyPressQ = (e) => {
+    if (e.key == "q") {
+      this.handleMenuBtn();
+    }
+  };
+
   toggleSoundsOn = () => {
     this.setState({ soundsOn: !this.state.soundsOn });
   };
@@ -112,7 +132,7 @@ class AppBody extends Component {
 
   toggleScorePanel = (e) => {
     this.setState({
-      showScorePanel: Boolean(parseInt(e.target.value)),
+      showScorePanel: +e.target.value,
     });
   };
 
@@ -128,10 +148,17 @@ class AppBody extends Component {
     } = this.state.flags;
 
     return (
-      <div>
+      <div
+      // onKeyDown={this.handleKeyPressM}
+      // tabIndex="1"
+      >
         <Helmet>
           <title>Card-game</title>
         </Helmet>
+        <input
+          style={{ visibility: "hidden" }}
+          // autoFocus={true}
+        />
         <MenuBtn menuBtnChange={this.handleMenuBtn} />
         {isMenu ? (
           <MainMenu
@@ -142,6 +169,7 @@ class AppBody extends Component {
         ) : null}
         {isLog ? (
           <Log
+            handleEnter={this.handleKeyPressEnter}
             startGame={this.handleLogBtn}
             getName={this.getName}
             playerName={this.state.playerName}
