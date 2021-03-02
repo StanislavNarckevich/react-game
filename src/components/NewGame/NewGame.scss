@@ -156,4 +156,39 @@
       }
     }
   }
+  .take-card-animation {
+    animation-duration: 0.3s;
+    animation-name: takeCard;
+  }
+
+  @keyframes takeCard {
+    0% {
+      transform: translate(0, 0);
+    }
+    99% {
+      transform: translate(417%, 424%);
+    }
+
+    100% {
+      display: none;
+    }
+  }
+
+  .opponent-take-card-animation {
+    animation-duration: 0.3s;
+    animation-name: opponentTakeCard;
+  }
+
+  @keyframes opponentTakeCard {
+    0% {
+      transform: translate(0, 0);
+    }
+    99% {
+      transform: translate(431%, -55%);
+    }
+
+    100% {
+      display: none;
+    }
+  }
 }

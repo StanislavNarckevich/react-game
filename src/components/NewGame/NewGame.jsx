@@ -42,6 +42,8 @@ class StartGame extends Component {
       opponentScore: 0,
       playerScore: 0,
       result: null,
+      cardAnimation: false,
+      opponentCardAnimation: false,
     };
   }
 
@@ -150,7 +152,14 @@ class StartGame extends Component {
       deck: deck,
       playerHand: playerHand,
       playerScore: playerScore,
+      cardAnimation: true,
     });
+
+    setTimeout(() => {
+      this.setState({
+        cardAnimation: false,
+      });
+    }, 300);
   };
 
   opponentTakeCard = () => {
@@ -176,7 +185,13 @@ class StartGame extends Component {
       deck: deck,
       opponentHand: opponentHand,
       opponentScore: opponentScore,
+      opponentCardAnimation: true,
     });
+    setTimeout(() => {
+      this.setState({
+        opponentCardAnimation: false,
+      });
+    }, 300);
   };
 
   opponentTurn = () => {
@@ -232,6 +247,8 @@ class StartGame extends Component {
       opponentHand,
       opponentScore,
       playerScore,
+      cardAnimation,
+      opponentCardAnimation,
     } = this.state;
     if (deck.length === 0) {
       alert("Deck is empty");
@@ -245,7 +262,20 @@ class StartGame extends Component {
           <div className="card-place"></div>
 
           <img src={cardBackSide} alt="card-backside" className="card-size" />
-          <img src={cardBackSide} alt="card-backside" className="card-size" />
+          <img
+            src={cardBackSide}
+            alt="card-backside"
+            className={`card-size ${
+              opponentCardAnimation ? "opponent-take-card-animation" : ""
+            }`}
+          />
+          <img
+            src={cardBackSide}
+            alt="card-backside"
+            className={`card-size ${
+              cardAnimation ? "take-card-animation" : ""
+            }`}
+          />
         </div>
         <div className="player-hand">
           {playerHand.map((card) => {
