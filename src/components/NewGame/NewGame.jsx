@@ -40,6 +40,7 @@ class StartGame extends Component {
       isOpponentTurn: false,
       isGameOver: false,
       opponentScore: 0,
+      isAutoplay: false,
       playerScore: 0,
       result: null,
       cardAnimation: false,
@@ -57,13 +58,11 @@ class StartGame extends Component {
     document.addEventListener("keydown", this.handleKeyPressZ);
     document.addEventListener("keydown", this.handleKeyPressX);
     document.addEventListener("keydown", this.handleKeyPressR);
-    console.log("mount ");
   }
   componentWillUnmount() {
     document.removeEventListener("keydown", this.handleKeyPressZ);
     document.removeEventListener("keydown", this.handleKeyPressX);
     document.removeEventListener("keydown", this.handleKeyPressR);
-    console.log("unmount");
   }
 
   handleKeyPressZ = (e) => {
@@ -82,8 +81,12 @@ class StartGame extends Component {
     }
   };
   newGame = () => {
-    setTimeout(this.playerTakeCard, 1000);
-    setTimeout(this.playerTakeCard, 1500);
+    if (this.state.isAutoplay) {
+      this.autoplayMode();
+    } else {
+      setTimeout(this.playerTakeCard, 1000);
+      setTimeout(this.playerTakeCard, 1500);
+    }
   };
 
   gameOver = () => {
@@ -125,6 +128,10 @@ class StartGame extends Component {
         result: "lose",
         isGameOver: true,
       });
+    }
+
+    if (this.state.isAutoplay) {
+      this.restart();
     }
   };
 
@@ -171,16 +178,13 @@ class StartGame extends Component {
     const card = deck.pop();
     const opponentHand = [...this.state.opponentHand];
     opponentHand.push(card);
-
     let opponentScore = opponentHand.reduce((acc, current) => {
       return acc + current.value;
     }, 0);
-
     let opponentAltScore = opponentHand.reduce((acc, current) => {
       return acc + current.altValue;
     }, 0);
     opponentScore = opponentScore <= 21 ? opponentScore : opponentAltScore;
-
     this.setState({
       deck: deck,
       opponentHand: opponentHand,
@@ -190,6 +194,51 @@ class StartGame extends Component {
     setTimeout(() => {
       this.setState({
         opponentCardAnimation: false,
+      });
+    }, 300);
+  };
+
+  autoplayMode = () => {
+    if (this.state.isAutoplay) {
+      const playerScore = this.state.playerScore;
+      if (playerScore < 17) {
+        this.autoplayTurn();
+        setTimeout(this.autoplayMode, 1000);
+      } else {
+        this.opponentTurn();
+      }
+    }
+  };
+
+  autoplayTurn = () => {
+    if (this.props.soundsOn) {
+      this.getCardSound.play();
+      this.getCardSound.volume = this.props.soundsVolume / 100;
+    }
+
+    const deck = [...this.state.deck];
+    const card = deck.pop();
+    const playerHand = [...this.state.playerHand];
+    playerHand.push(card);
+
+    let playerScore = playerHand.reduce((acc, current) => {
+      return acc + current.value;
+    }, 0);
+
+    let playerAltScore = playerHand.reduce((acc, current) => {
+      return acc + current.altValue;
+    }, 0);
+    playerScore = playerScore <= 21 ? playerScore : playerAltScore;
+
+    this.setState({
+      deck: deck,
+      playerHand: playerHand,
+      playerScore: playerScore,
+      cardAnimation: true,
+    });
+    setTimeout(() => {
+      this.setState({
+        cardAnimation: false,
       });
     }, 300);
   };
@@ -238,10 +287,18 @@ class StartGame extends Component {
     this.newGame();
   };
 
+  handlerAutoplayBtn = () => {
+    this.setState({
+      isAutoplay: !this.state.isAutoplay,
+    });
+    setTimeout(this.autoplayMode, 200);
+  };
+
   render() {
     let {
       isOpponentTurn,
       isGameOver,
+      isAutoplay,
       deck,
       playerHand,
       opponentHand,
@@ -297,16 +354,33 @@ class StartGame extends Component {
         <button
           disabled={isOpponentTurn || deck.length === 0 ? true : false}
           onClick={this.handleHitBtn}
+          disabled={isAutoplay ? true : false}
         >
           Hit
         </button>
         <button
           onClick={this.handleStandBtn}
           disabled={isOpponentTurn ? true : false}
+          disabled={isAutoplay ? true : false}
         >
           Stand
         </button>
-        {isGameOver ? <button onClick={this.restart}>repeat</button> : null}
+
+        {isGameOver ? (
+          <button onClick={this.restart} className="restart">
+            repeat
+          </button>
+        ) : null}
+
+        <button
+          onClick={this.handlerAutoplayBtn}
+          className={`autoplayBtn ${
+            this.state.isAutoplay ? "bg-red" : "bg-green"
+          }`}
+        >
+          Autoplay
+        </button>
+
         {this.props.showScorePanel ? (
           <div className="score">
             <label>

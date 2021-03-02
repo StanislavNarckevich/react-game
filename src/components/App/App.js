@@ -141,7 +141,6 @@ class AppBody extends Component {
   };
 
   render() {
-    console.log(this.state);
     let {
       isMenu,
       isGame,

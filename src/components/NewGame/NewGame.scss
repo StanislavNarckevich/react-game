@@ -113,8 +113,9 @@
   button:nth-child(5) {
     right: 10%;
   }
-  button:nth-child(6) {
+  .restart {
     left: 8%;
+    bottom: 20%;
   }
 
   .player-hand {
@@ -190,5 +191,20 @@
     100% {
       display: none;
     }
+  }
+
+  .autoplayBtn {
+    position: absolute;
+    left: 8%;
+  }
+
+  .bg-green {
+    background: rgb(18, 211, 27);
+  }
+
+  .bg-red {
+    transform: scale(1.2);
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+    background: rgb(241, 0, 0);
   }
 }
