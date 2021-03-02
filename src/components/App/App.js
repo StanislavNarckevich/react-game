@@ -1,12 +1,13 @@
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { render } from "@testing-library/react";
-import { Component, useCallback } from "react";
+import { Component } from "react";
 import { Helmet } from "react-helmet";
 import MainMenu from "../Main-menu/Main-menu";
 import MenuBtn from "../MenuBtn/MenuBtn";
-import { Music, Sounds } from "../Sounds/Sounds";
-import Settings from "../Settings/Settings";
 import { StartGame, Log } from "../NewGame/NewGame";
+import Settings from "../Settings/Settings";
+import { Music, Sounds } from "../Sounds/Sounds";
+import Rules from "../Rules/Rules";
 
 import "./App.scss";
 
@@ -72,6 +73,9 @@ class AppBody extends Component {
 
   handleNewGameBtn = () => {
     this.resetFlags("isLog");
+  };
+  handleRulesBtn = () => {
+    this.resetFlags("isRules");
   };
   handleStatsBtn = () => {
     this.resetFlags("isStats");
@@ -148,25 +152,21 @@ class AppBody extends Component {
     } = this.state.flags;
 
     return (
-      <div
-      // onKeyDown={this.handleKeyPressM}
-      // tabIndex="1"
-      >
+      <div>
         <Helmet>
           <title>Card-game</title>
         </Helmet>
-        <input
-          style={{ visibility: "hidden" }}
-          // autoFocus={true}
-        />
         <MenuBtn menuBtnChange={this.handleMenuBtn} />
+
         {isMenu ? (
           <MainMenu
             newGameBtnChange={this.handleNewGameBtn}
             statsBtnChange={this.handleStatsBtn}
             settingsBtnChange={this.handleSettingsBtn}
+            rulesBtnChange={this.handleRulesBtn}
           />
         ) : null}
+
         {isLog ? (
           <Log
             handleEnter={this.handleKeyPressEnter}
@@ -175,6 +175,7 @@ class AppBody extends Component {
             playerName={this.state.playerName}
           />
         ) : null}
+
         {isGame ? (
           <StartGame
             soundsVolume={this.state.soundsVolume}
@@ -183,6 +184,9 @@ class AppBody extends Component {
             showScorePanel={this.state.showScorePanel}
           />
         ) : null}
+
+        {isRules ? <Rules /> : null}
+
         {isSettings ? (
           <Settings
             fullscreenBtn={this.props.fullscreenBtn}
@@ -196,6 +200,7 @@ class AppBody extends Component {
             showScorePanel={this.state.showScorePanel}
           />
         ) : null}
+
         <Music musicVolume={this.state.musicVolume} />
         <Sounds
           toggleSoundsOn={this.toggleSoundsOn}

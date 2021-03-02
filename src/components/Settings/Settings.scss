@@ -21,8 +21,24 @@
     font-family: sans-serif;
     text-align: center;
     label,
-    span {
+    span,
+    button {
       color: whitesmoke;
+      font-family: "Akaya Kanadaka", cursive;
+      font-size: 1.4em;
+      margin-right: 20px;
+    }
+    button {
+      padding: 1%;
+      border-radius: 20px;
+      background: linear-gradient(#4f882e, #dd0732);
+    }
+    select {
+      padding: 10px;
+      font-size: 1.2em;
+      background: cornflowerblue;
+      font-family: "Akaya Kanadaka";
+      color: rgb(71, 5, 5);
     }
   }
 }

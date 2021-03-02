@@ -18,15 +18,15 @@ class Music extends React.Component {
   };
 
   componentDidMount() {
-    document.addEventListener("keydown", this.handleKeyPressM);
+    document.addEventListener("keydown", this.handleKeyPressP);
   }
 
   componentWillUnmount() {
-    document.removeEventListener("keydown", this.handleKeyPressM);
+    document.removeEventListener("keydown", this.handleKeyPressP);
   }
 
-  handleKeyPressM = (e) => {
-    if (e.key == "m") {
+  handleKeyPressP = (e) => {
+    if (e.key == "p") {
       this.togglePlay();
     }
   };

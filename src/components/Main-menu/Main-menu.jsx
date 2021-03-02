@@ -9,10 +9,10 @@ export default function MainMenu(props) {
     <div className="MainMenu">
       <div className="menu">
         <button onClick={props.newGameBtnChange}>New Game </button>
-        <button onClick={props.statsBtnChange}>Stats </button>
+        <button onClick={props.rulesBtnChange}>Rules </button>
         <button onClick={props.settingsBtnChange}>Settings </button>
+        <button onClick={props.statsBtnChange}>Stats </button>
       </div>
     </div>
   );
-  // }
 }
