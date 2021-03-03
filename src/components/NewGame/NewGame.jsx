@@ -33,19 +33,24 @@ class StartGame extends Component {
     });
     const deck = [...cardsData];
 
-    this.state = {
-      deck: deck,
-      playerHand: [],
-      opponentHand: [],
-      isOpponentTurn: false,
-      isGameOver: false,
-      opponentScore: 0,
-      isAutoplay: false,
-      playerScore: 0,
-      result: null,
-      cardAnimation: false,
-      opponentCardAnimation: false,
-    };
+    if (JSON.parse(localStorage.getItem("gameState"))) {
+      this.state = JSON.parse(localStorage.getItem("gameState"));
+    } else {
+      this.state = {
+        deck: deck,
+        playerHand: [],
+        opponentHand: [],
+        isOpponentTurn: false,
+        isGameOver: false,
+        opponentScore: 0,
+        isAutoplay: false,
+        playerScore: 0,
+        result: null,
+        cardAnimation: false,
+        opponentCardAnimation: false,
+      };
+    }
+    console.log(`constructor`);
   }
 
   getCardSound = new Audio(cardSound);
@@ -54,15 +59,20 @@ class StartGame extends Component {
   tieSound = new Audio(tieSound);
 
   componentDidMount() {
-    this.newGame();
+    if (!this.state.playerHand.length) {
+      this.newGame();
+    }
     document.addEventListener("keydown", this.handleKeyPressZ);
     document.addEventListener("keydown", this.handleKeyPressX);
     document.addEventListener("keydown", this.handleKeyPressR);
+    console.log("mount");
+    // ****;
   }
   componentWillUnmount() {
     document.removeEventListener("keydown", this.handleKeyPressZ);
     document.removeEventListener("keydown", this.handleKeyPressX);
     document.removeEventListener("keydown", this.handleKeyPressR);
+    console.log("unmount");
   }
 
   handleKeyPressZ = (e) => {
@@ -295,6 +305,8 @@ class StartGame extends Component {
   };
 
   render() {
+    localStorage.setItem("gameState", JSON.stringify(this.state));
+    console.log("render");
     let {
       isOpponentTurn,
       isGameOver,
@@ -307,6 +319,7 @@ class StartGame extends Component {
       cardAnimation,
       opponentCardAnimation,
     } = this.state;
+
     if (deck.length === 0) {
       alert("Deck is empty");
       this.restart();

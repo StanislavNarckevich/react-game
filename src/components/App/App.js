@@ -26,23 +26,27 @@ export default function App() {
 class AppBody extends Component {
   constructor() {
     super();
-    this.state = {
-      flags: {
-        isMenu: true,
-        isGame: false,
-        isStats: false,
-        isSettings: false,
-        isLog: false,
-        isRules: false,
-        isStart: false,
-      },
-      playerName: "",
-      musicVolume: 50,
-      soundsOn: true,
-      soundsVolume: 50,
-      table: "green-table",
-      showScorePanel: true,
-    };
+    if (JSON.parse(localStorage.getItem("appState"))) {
+      this.state = JSON.parse(localStorage.getItem("appState"));
+    } else {
+      this.state = {
+        flags: {
+          isMenu: true,
+          isGame: false,
+          isStats: false,
+          isSettings: false,
+          isLog: false,
+          isRules: false,
+          isStart: false,
+        },
+        playerName: "",
+        musicVolume: 50,
+        soundsOn: true,
+        soundsVolume: 50,
+        table: "green-table",
+        showScorePanel: true,
+      };
+    }
   }
   componentDidMount() {
     document.addEventListener("keydown", this.handleKeyPressS);
@@ -72,7 +76,12 @@ class AppBody extends Component {
   };
 
   handleNewGameBtn = () => {
+    localStorage.removeItem("gameState");
     this.resetFlags("isLog");
+  };
+  handleResumeGameBtn = () => {
+    this.resetFlags("isGame");
+    console.log(this.state);
   };
   handleRulesBtn = () => {
     this.resetFlags("isRules");
@@ -141,6 +150,8 @@ class AppBody extends Component {
   };
 
   render() {
+    localStorage.setItem("appState", JSON.stringify(this.state));
+
     let {
       isMenu,
       isGame,
@@ -163,6 +174,7 @@ class AppBody extends Component {
             statsBtnChange={this.handleStatsBtn}
             settingsBtnChange={this.handleSettingsBtn}
             rulesBtnChange={this.handleRulesBtn}
+            resumeGameBtn={this.handleResumeGameBtn}
           />
         ) : null}
 
