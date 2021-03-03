@@ -1,6 +1,15 @@
 import "./Stats.scss";
 
 export default function Stats(props) {
+  const statsData = JSON.parse(localStorage.getItem("stats-data"));
+  debugger;
+  let data;
+  if (statsData.length > 12) {
+    data = statsData.slice(-12);
+  } else {
+    data = statsData;
+  }
+
   return (
     <div className="stats-page">
       <div className="stats-window">
@@ -11,12 +20,18 @@ export default function Stats(props) {
             <th>Score</th>
             <th>Date</th>
           </tr>
-          <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-            <td>4</td>
-          </tr>
+          {data.map((item) => {
+            return (
+              <tr>
+                <td>{item.playerName}</td>
+                <td>{item.result}</td>
+                <td>
+                  {item.playerWins} - {item.opponentWins}
+                </td>
+                <td>{item.date}</td>
+              </tr>
+            );
+          })}
         </table>
       </div>
     </div>

@@ -46,14 +46,15 @@ class StartGame extends Component {
         opponentScore: 0,
         isAutoplay: false,
         playerScore: 0,
-        result: null,
+        result: "",
         cardAnimation: false,
         opponentCardAnimation: false,
         playerWins: 0,
         opponentWins: 0,
+        date: new Date(),
       };
     }
-    // console.log(`constructor`);
+    // localStorage.clear();
   }
 
   getCardSound = new Audio(cardSound);
@@ -68,14 +69,18 @@ class StartGame extends Component {
     document.addEventListener("keydown", this.handleKeyPressZ);
     document.addEventListener("keydown", this.handleKeyPressX);
     document.addEventListener("keydown", this.handleKeyPressR);
-    console.log("mount");
-    // ****;
   }
   componentWillUnmount() {
     document.removeEventListener("keydown", this.handleKeyPressZ);
     document.removeEventListener("keydown", this.handleKeyPressX);
     document.removeEventListener("keydown", this.handleKeyPressR);
-    console.log("unmount");
+    // *****
+    let statsData = [];
+    if (JSON.parse(localStorage.getItem("stats-data"))) {
+      statsData = JSON.parse(localStorage.getItem("stats-data"));
+    }
+    statsData.push(this.state);
+    localStorage.setItem("stats-data", JSON.stringify(statsData));
   }
 
   handleKeyPressZ = (e) => {
