@@ -12,3 +12,23 @@ button:hover {
   transition: transform 0.2s ease-in-out;
   cursor: pointer;
 }
+
+footer {
+  position: fixed;
+  // width: 100%;
+  height: 30px;
+}
+
+.rs-logo {
+  position: fixed;
+  bottom: 3%;
+  left: 50%;
+  height: 6%;
+}
+
+.my-git {
+  position: fixed;
+  bottom: 3%;
+  left: 40%;
+  height: 6%;
+}

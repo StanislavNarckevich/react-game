@@ -1,0 +1,22 @@
+.stats-page {
+  max-width: 100%;
+  height: 100vh;
+  position: relative;
+
+  table {
+    color: whitesmoke;
+  }
+  .stats-window {
+    width: 50%;
+    height: 60%;
+    background-image: url("../../assets/images/setting-bg.PNG");
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    font-family: sans-serif;
+    border-radius: 30px;
+  }
+}

@@ -8,6 +8,9 @@ import { StartGame, Log } from "../NewGame/NewGame";
 import Settings from "../Settings/Settings";
 import { Music, Sounds } from "../Sounds/Sounds";
 import Rules from "../Rules/Rules";
+import Stats from "../Stats/Stats";
+import rsLogo from "../../assets/images/rs_school-logo.svg";
+import githubLogo from "../../assets/images/github.png";
 
 import "./App.scss";
 
@@ -45,6 +48,7 @@ class AppBody extends Component {
         soundsVolume: 50,
         table: "green-table",
         showScorePanel: true,
+        gameDuration: "10",
       };
     }
   }
@@ -131,6 +135,12 @@ class AppBody extends Component {
     });
   };
 
+  changeGameDuration = (e) => {
+    this.setState({
+      gameDuration: e.target.value,
+    });
+  };
+
   changeSoundsVolume = (e) => {
     this.setState({
       soundsVolume: parseInt(e.target.value),
@@ -151,7 +161,7 @@ class AppBody extends Component {
 
   render() {
     localStorage.setItem("appState", JSON.stringify(this.state));
-
+    console.log(this.state);
     let {
       isMenu,
       isGame,
@@ -193,6 +203,9 @@ class AppBody extends Component {
             soundsOn={this.state.soundsOn}
             table={this.state.table}
             showScorePanel={this.state.showScorePanel}
+            gameDuration={this.state.gameDuration}
+            gameOver={this.handleMenuBtn}
+            playerName={this.state.playerName}
           />
         ) : null}
 
@@ -204,19 +217,33 @@ class AppBody extends Component {
             changeTable={this.changeTable}
             changeMusicVolume={this.changeMusicVolume}
             changeSoundsVolume={this.changeSoundsVolume}
+            toggleGameDuration={this.changeGameDuration}
             toggleScorePanel={this.toggleScorePanel}
             musicVolume={this.state.musicVolume}
             soundsVolume={this.state.soundsVolume}
             selectedTable={this.state.table}
             showScorePanel={this.state.showScorePanel}
+            gameDuration={this.state.gameDuration}
           />
         ) : null}
+
+        {isStats ? <Stats /> : null}
 
         <Music musicVolume={this.state.musicVolume} />
         <Sounds
           toggleSoundsOn={this.toggleSoundsOn}
           soundsOn={this.state.soundsOn}
         />
+        {isMenu ? (
+          <footer>
+            <a href="https://rs.school/js/">
+              <img src={rsLogo} alt="rs" className="rs-logo" />
+            </a>
+            <a href="https://github.com/StanislavNarckevich">
+              <img src={githubLogo} alt="github" className="my-git" />
+            </a>
+          </footer>
+        ) : null}
       </div>
     );
   }

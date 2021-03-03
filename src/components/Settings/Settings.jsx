@@ -3,6 +3,7 @@ import MusicVolume from "./MusicVolume";
 import SoundsVolume from "./SoundsVolume";
 import SelectTable from "./SelectTable";
 import SetDifficulty from "./SetDifficulty";
+import GameDuration from "./GameDuration";
 import "./Settings.scss";
 
 export default function Settings(props) {
@@ -26,6 +27,10 @@ export default function Settings(props) {
         <SetDifficulty
           showScorePanel={props.showScorePanel}
           toggleScorePanel={props.toggleScorePanel}
+        />
+        <GameDuration
+          toggleGameDuration={props.toggleGameDuration}
+          gameDuration={props.gameDuration}
         />
       </div>
     </div>

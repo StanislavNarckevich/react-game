@@ -26,8 +26,8 @@ function Log(props) {
 }
 
 class StartGame extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     cardsData.sort(function () {
       return Math.random() - 0.5;
     });
@@ -38,6 +38,7 @@ class StartGame extends Component {
     } else {
       this.state = {
         deck: deck,
+        playerName: this.props.playerName,
         playerHand: [],
         opponentHand: [],
         isOpponentTurn: false,
@@ -48,9 +49,11 @@ class StartGame extends Component {
         result: null,
         cardAnimation: false,
         opponentCardAnimation: false,
+        playerWins: 0,
+        opponentWins: 0,
       };
     }
-    console.log(`constructor`);
+    // console.log(`constructor`);
   }
 
   getCardSound = new Audio(cardSound);
@@ -106,11 +109,13 @@ class StartGame extends Component {
         this.winSound.play();
         this.winSound.volume = this.props.soundsVolume / 100;
       }
-      alert(`YOU WIN`);
       this.setState({
-        result: "win",
+        playerWins: this.state.playerWins + 1,
         isGameOver: true,
       });
+      alert(
+        `YOU WIN  \n Score ${this.state.playerWins} - ${this.state.opponentWins}`
+      );
     };
     if (playerScore > opponentScore && playerScore < 22) {
       win();
@@ -123,25 +128,50 @@ class StartGame extends Component {
         this.tieSound.play();
         this.tieSound.volume = this.props.soundsVolume / 100;
       }
-      alert("TIE");
       this.setState({
-        result: "tie",
         isGameOver: true,
       });
+      alert(
+        `TIE \n Score ${this.state.playerWins} - ${this.state.opponentWins}`
+      );
     } else {
       if (this.props.soundsOn) {
         this.loseSound.volume = this.props.soundsVolume / 100;
         this.loseSound.play();
       }
-      alert(`YOU LOSE`);
       this.setState({
-        result: "lose",
+        opponentWins: this.state.opponentWins + 1,
         isGameOver: true,
       });
+      alert(
+        `YOU LOSE \n Score ${this.state.playerWins} - ${this.state.opponentWins}`
+      );
     }
 
     if (this.state.isAutoplay) {
       this.restart();
+    }
+    console.log(this.props, this.state);
+    if (this.props.gameDuration == this.state.playerWins) {
+      alert(
+        `GAME OVER \n YOU WIN \n Score ${this.state.playerWins} - ${this.state.opponentWins}`
+      );
+      this.setState({
+        isAutoplay: false,
+        result: "win",
+      });
+      this.props.gameOver();
+    }
+
+    if (this.props.gameDuration == this.state.opponentWins) {
+      alert(
+        `GAME OVER \n YOU LOSE \n Score ${this.state.playerWins} - ${this.state.opponentWins}`
+      );
+      this.setState({
+        isAutoplay: false,
+        result: "lose",
+      });
+      this.props.gameOver();
     }
   };
 
@@ -276,7 +306,7 @@ class StartGame extends Component {
   };
 
   restart = () => {
-    if (this.state.deck.length < 2) {
+    if (this.state.deck.length) {
       cardsData.sort(function () {
         return Math.random() - 0.5;
       });
@@ -367,14 +397,13 @@ class StartGame extends Component {
         <button
           disabled={isOpponentTurn || deck.length === 0 ? true : false}
           onClick={this.handleHitBtn}
-          disabled={isAutoplay ? true : false}
+          disabled={isAutoplay || isOpponentTurn ? true : false}
         >
           Hit
         </button>
         <button
           onClick={this.handleStandBtn}
-          disabled={isOpponentTurn ? true : false}
-          disabled={isAutoplay ? true : false}
+          disabled={isOpponentTurn || isAutoplay ? true : false}
         >
           Stand
         </button>
