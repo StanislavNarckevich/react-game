@@ -156,7 +156,7 @@ class StartGame extends Component {
     if (this.state.isAutoplay) {
       this.restart();
     }
-    console.log(this.props, this.state);
+
     if (this.props.gameDuration == this.state.playerWins) {
       alert(
         `GAME OVER \n YOU WIN \n Score ${this.state.playerWins} - ${this.state.opponentWins}`
@@ -341,7 +341,7 @@ class StartGame extends Component {
 
   render() {
     localStorage.setItem("gameState", JSON.stringify(this.state));
-    console.log("render");
+
     let {
       isOpponentTurn,
       isGameOver,

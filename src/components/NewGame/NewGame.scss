@@ -208,3 +208,56 @@
     background: rgb(241, 0, 0);
   }
 }
+
+@media (max-width: 1376px) {
+  .game-mode .bg-green,
+  game-mode .bg-red {
+    width: auto;
+    font-size: 1.1em;
+  }
+}
+@media (max-width: 992px) {
+  .game-mode button:nth-child(5),
+  button:nth-child(4) {
+    width: auto;
+    font-size: 1.1em;
+  }
+
+  .game-mode .game-field .card-place {
+    display: none;
+  }
+}
+
+@media (max-width: 800px) {
+  .game-mode button:nth-child(5),
+  button:nth-child(4) {
+    width: auto;
+    font-size: 1em;
+    margin: 2%;
+  }
+}
+
+@media (max-width: 700px) {
+  .Log input {
+    max-width: 70%;
+    padding: 0;
+  }
+
+  .Log span {
+    font-size: 1em;
+  }
+
+  .game-mode button:nth-child(5),
+  button:nth-child(4) {
+    width: auto;
+    font-size: 1em;
+  }
+
+  .game-mode button:nth-child(5) {
+    bottom: 20%;
+  }
+
+  .game-mode button:nth-child(4) {
+    right: 13%;
+  }
+}

@@ -2,7 +2,6 @@ import "./Stats.scss";
 
 export default function Stats(props) {
   const statsData = JSON.parse(localStorage.getItem("stats-data"));
-  debugger;
   let data;
   if (statsData.length > 12) {
     data = statsData.slice(-12);

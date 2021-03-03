@@ -42,3 +42,14 @@
     }
   }
 }
+
+@media (max-width: 700px) {
+  .settings-page .settings-window select {
+    padding: 5px;
+    font-size: 1em;
+  }
+  .settings-page .settings-window select option {
+    font-size: 1em;
+    max-height: 1em;
+  }
+}

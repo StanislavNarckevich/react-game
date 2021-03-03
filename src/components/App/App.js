@@ -85,7 +85,6 @@ class AppBody extends Component {
   };
   handleResumeGameBtn = () => {
     this.resetFlags("isGame");
-    console.log(this.state);
   };
   handleRulesBtn = () => {
     this.resetFlags("isRules");
@@ -161,7 +160,7 @@ class AppBody extends Component {
 
   render() {
     localStorage.setItem("appState", JSON.stringify(this.state));
-    console.log(this.state);
+
     let {
       isMenu,
       isGame,
