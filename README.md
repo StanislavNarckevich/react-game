@@ -1,3 +1,3 @@
 # react-game
 
-[Black Jack](https://stanislavnarckevich.github.io/react-game/build/)
+[Black Jack](https://stanislavnarckevich.github.io/react-game/)
