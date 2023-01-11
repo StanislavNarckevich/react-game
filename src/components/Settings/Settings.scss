@@ -1,0 +1,55 @@
+.settings-page {
+  max-width: 100%;
+  height: 100vh;
+  position: relative;
+
+  .settings-window {
+    width: 50%;
+    height: 60%;
+    background-image: url("../../assets/images/setting-bg.PNG");
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    border-radius: 30px;
+    font-family: sans-serif;
+    text-align: center;
+    label,
+    span,
+    button {
+      color: whitesmoke;
+      font-family: "Akaya Kanadaka", cursive;
+      font-size: 1.4em;
+      margin-right: 20px;
+    }
+    button {
+      padding: 1%;
+      border-radius: 20px;
+      background: linear-gradient(#4f882e, #dd0732);
+    }
+    select {
+      padding: 10px;
+      font-size: 1.2em;
+      background: cornflowerblue;
+      font-family: "Akaya Kanadaka";
+      color: rgb(71, 5, 5);
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .settings-page .settings-window select {
+    padding: 5px;
+    font-size: 1em;
+  }
+  .settings-page .settings-window select option {
+    font-size: 1em;
+    max-height: 1em;
+  }
+}
